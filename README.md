@@ -37,3 +37,18 @@ This is a simple weather app with two screens: Help Screen and Homepage Screen. 
 
    ```bash
      flutter run
+
+## Technologies Used
+1. Flutter
+2. Dart
+3. Weather API (http://www.weatherapi.com/)
+
+## Dependencies
+1. http
+2. provider
+3. google_fonts
+4. geolocator
+
+## Contact
+You can reach me via email at [gyawalibikash321@gmail.com](mailto:gyawalibikash321@gmail.com).
+
