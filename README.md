@@ -26,14 +26,14 @@ This is a simple weather app with two screens: Help Screen and Homepage Screen. 
    git clone https://github.com/yourusername/your-repository.git
 2. Navigate to the project directory:
 
-   '''bash
+   ```bash
    cd weather_app
 
 3. Install Dependencies:
 
-    '''bash
+    ```bash
        flutter pub get
 4. Run the app:
 
-   '''bash
+   ```bash
      flutter run
