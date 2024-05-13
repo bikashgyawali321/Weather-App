@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart';
-
-//overall weather model
+// Overall weather model
 class Weather {
   final Location location;
-  final CurrentWeather currentWeather;
-  Weather({required this.location, required this.currentWeather});
+  final CurrentWeather current;
+
+  Weather({required this.location, required this.current});
+
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
-      location: Location.fromJson(json['location'] ?? ""),
-      currentWeather: CurrentWeather.fromJson(json['currentWeather'] ?? ""),
+      location: Location.fromJson(json['location']),
+      current: CurrentWeather.fromJson(json['current']),
     );
   }
 }
 
-//model for location
+// Model for location
 class Location {
   final String name;
   final String region;
@@ -21,58 +21,75 @@ class Location {
   final double lat;
   final double lon;
   final DateTime localtime;
-  Location(
-      {required this.name,
-      required this.country,
-      required this.localtime,
-      required this.lat,
-      required this.lon,
-      required this.region});
+
+  Location({
+    required this.name,
+    required this.region,
+    required this.country,
+    required this.lat,
+    required this.lon,
+    required this.localtime,
+  });
+
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
-        name: json['name'] ?? '',
-        country: json['country'],
-        region: json['region'],
-        lat: json['lat'],
-        lon: json['lon'],
-        localtime: json['localtime']);
+      name: json['name'],
+      region: json['region'],
+      country: json['country'],
+      lat: json['lat'],
+      lon: json['lon'],
+      localtime: DateTime.parse(json['localtime']),
+    );
   }
 }
 
-//model for current weather
+// Model for current weather
 class CurrentWeather {
-  final String lastUpdatedEpoch;
+  final int lastUpdatedEpoch;
   final DateTime lastUpdated;
   final double tempC;
   final double tempF;
   final bool isDay;
   final Condition condition;
-  CurrentWeather(
-      {required this.lastUpdatedEpoch,
-      required this.condition,
-      required this.isDay,
-      required this.lastUpdated,
-      required this.tempC,
-      required this.tempF});
+
+  CurrentWeather({
+    required this.lastUpdatedEpoch,
+    required this.lastUpdated,
+    required this.tempC,
+    required this.tempF,
+    required this.isDay,
+    required this.condition,
+  });
+
   factory CurrentWeather.fromJson(Map<String, dynamic> json) {
     return CurrentWeather(
-        lastUpdatedEpoch: json['last_updated_epoch'],
-        condition: Condition.fromJson(json['condition']),
-        isDay: json['is_day'],
-        lastUpdated: json['last_updated'],
-        tempC: json['temp_c'],
-        tempF: json['temp_f']);
+      lastUpdatedEpoch: json['last_updated_epoch'],
+      lastUpdated: DateTime.parse(json['last_updated']),
+      tempC: json['temp_c'].toDouble(),
+      tempF: json['temp_f'].toDouble(),
+      isDay: json['is_day'] == 1,
+      condition: Condition.fromJson(json['condition']),
+    );
   }
 }
 
-//model for condition
+// Model for condition
 class Condition {
   final String text;
-  final Icon icon;
-  final num code;
-  Condition({required this.text, required this.icon, required this.code});
+  final String icon;
+  final int code;
+
+  Condition({
+    required this.text,
+    required this.icon,
+    required this.code,
+  });
+
   factory Condition.fromJson(Map<String, dynamic> json) {
     return Condition(
-        text: json['text'], icon: json['icon'], code: json['code']);
+      text: json['text'],
+      icon: json['icon'],
+      code: json['code'],
+    );
   }
 }
