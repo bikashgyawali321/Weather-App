@@ -51,6 +51,23 @@ class CurrentWeather {
   final double tempF;
   final bool isDay;
   final Condition condition;
+  final double windMph;
+  final double windKph;
+  final int windDegree;
+  final String windDir;
+  final double pressureMb;
+  final double pressureIn;
+  final double precipMm;
+  final double precipIn;
+  final int humidity;
+  final int cloud;
+  final double feelsLikeC;
+  final double feelsLikeF;
+  final double visKm;
+  final double visMiles;
+  final double uv;
+  final double gustMph;
+  final double gustKph;
 
   CurrentWeather({
     required this.lastUpdatedEpoch,
@@ -59,16 +76,50 @@ class CurrentWeather {
     required this.tempF,
     required this.isDay,
     required this.condition,
+    required this.windMph,
+    required this.windKph,
+    required this.windDegree,
+    required this.windDir,
+    required this.pressureMb,
+    required this.pressureIn,
+    required this.precipMm,
+    required this.precipIn,
+    required this.humidity,
+    required this.cloud,
+    required this.feelsLikeC,
+    required this.feelsLikeF,
+    required this.visKm,
+    required this.visMiles,
+    required this.uv,
+    required this.gustMph,
+    required this.gustKph,
   });
 
   factory CurrentWeather.fromJson(Map<String, dynamic> json) {
     return CurrentWeather(
       lastUpdatedEpoch: json['last_updated_epoch'],
       lastUpdated: DateTime.parse(json['last_updated']),
-      tempC: json['temp_c'].toDouble(),
-      tempF: json['temp_f'].toDouble(),
+      tempC: json['temp_c'],
+      tempF: json['temp_f'],
       isDay: json['is_day'] == 1,
       condition: Condition.fromJson(json['condition']),
+      windMph: json['wind_mph'],
+      windKph: json['wind_kph'],
+      windDegree: json['wind_degree'],
+      windDir: json['wind_dir'],
+      pressureMb: json['pressure_mb'],
+      pressureIn: json['pressure_in'],
+      precipMm: json['precip_mm'],
+      precipIn: json['precip_in'],
+      humidity: json['humidity'],
+      cloud: json['cloud'],
+      feelsLikeC: json['feelslike_c'],
+      feelsLikeF: json['feelslike_f'],
+      visKm: json['vis_km'].toDouble(),
+      visMiles: json['vis_miles'],
+      uv: json['uv'].toDouble(),
+      gustMph: json['gust_mph'],
+      gustKph: json['gust_kph'],
     );
   }
 }

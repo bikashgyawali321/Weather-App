@@ -116,29 +116,75 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   left: 10,
                   right: 10,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextFormField(
-                        controller: _locationController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.circular(12),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_pin,
+                            size: 27,
+                            color: Colors.white,
                           ),
-                          suffixIcon: TextButton(
-                            onPressed: _saveOrUpdateLocation,
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Flexible(
                             child: Text(
-                              location == null || location!.isEmpty
-                                  ? 'Save'
-                                  : 'Update',
-                              style: TextStyle(color: Colors.white),
+                              '${detail!.location.name}, ${detail.location.country} ',
+                              style: GoogleFonts.abrilFatface(
+                                  textStyle: TextStyle(
+                                      color: Colors.white, fontSize: 23)),
                             ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        '\t\t\tUpdated ${detail.current.lastUpdated.minute} minutes ago',
+                        style: GoogleFonts.aDLaMDisplay(
+                            textStyle:
+                                TextStyle(color: Colors.white, fontSize: 17)),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            gradient: LinearGradient(colors: [
+                              Colors.cyan.withOpacity(0.6),
+                              Colors.black.withOpacity(0.4),
+                              Colors.red.withOpacity(0.7),
+                              Colors.green.withOpacity(0.4),
+                            ])),
+                        child: Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${detail.current.tempC}°C',
+                                style: GoogleFonts.aDLaMDisplay(
+                                    textStyle: TextStyle(
+                                        color: Colors.white, fontSize: 40)),
+                              ),
+                              Text(
+                                'Feels Like: ${detail.current.feelsLikeC}°C',
+                                style: GoogleFonts.adamina(
+                                    textStyle: TextStyle(
+                                        color: Colors.white, fontSize: 25)),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
-                      Text(
-                        detail!.current.tempC.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 24.0),
+                      SizedBox(
+                        width: 5,
                       ),
                     ],
                   ),
@@ -148,6 +194,29 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           ),
         ],
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          controller: _locationController,
+          style: GoogleFonts.acme(
+              textStyle: TextStyle(color: Colors.white, fontSize: 13)),
+          decoration: InputDecoration(
+            hintText: 'Enter location.....',
+            hintStyle: TextStyle(color: Colors.white),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            suffixIcon: TextButton(
+              onPressed: _saveOrUpdateLocation,
+              child: Text(
+                location == null || location!.isEmpty ? 'Save' : 'Update',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
