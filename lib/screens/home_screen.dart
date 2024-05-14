@@ -112,6 +112,13 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     style: TextStyle(color: Colors.white),
                   ),
                 );
+              } else if (value.error != null) {
+                return Center(
+                  child: Text(
+                    'Error Occured while loading weather data:\n${value.error}}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                );
               } else {
                 final detail = value.weatherData;
                 return Positioned(
@@ -141,6 +148,19 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                       color: Colors.white, fontSize: 23)),
                             ),
                           ),
+                          SizedBox(
+                            width: 130,
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pushReplacementNamed(
+                                    context, '/help');
+                              },
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                                size: 23,
+                              ))
                         ],
                       ),
                       SizedBox(
@@ -156,7 +176,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         height: 20,
                       ),
                       Container(
-                        width: 200,
+                        width: double.infinity,
                         padding: EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
@@ -187,9 +207,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                       textStyle: TextStyle(
                                           color: Colors.white, fontSize: 18))),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                            Center(
                               child: Text(
                                 detail.location.localtime,
                                 style: TextStyle(
@@ -203,39 +221,316 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            gradient: LinearGradient(colors: [
-                              Colors.cyan.withOpacity(0.6),
-                              Colors.black.withOpacity(0.4),
-                              Colors.red.withOpacity(0.7),
-                              Colors.green.withOpacity(0.4),
-                            ])),
-                        child: Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${detail.current.tempC}°C',
-                                style: GoogleFonts.aDLaMDisplay(
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 40)),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 120,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  gradient: LinearGradient(colors: [
+                                    Colors.cyan.withOpacity(0.6),
+                                    Colors.black.withOpacity(0.4),
+                                    Colors.red.withOpacity(0.7),
+                                    Colors.green.withOpacity(0.4),
+                                  ])),
+                              child: Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${detail.current.tempC}°C',
+                                      style: GoogleFonts.aDLaMDisplay(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 40)),
+                                    ),
+                                    Text(
+                                      'Feels like ${detail.current.feelsLikeC}°C',
+                                      style: GoogleFonts.adamina(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20)),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Text(
-                                'Feels Like: ${detail.current.feelsLikeC}°C',
-                                style: GoogleFonts.adamina(
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 25)),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              width: 200,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(colors: [
+                                  Colors.cyan.withOpacity(0.6),
+                                  Colors.black.withOpacity(0.4),
+                                  Colors.red.withOpacity(0.7),
+                                  Colors.green.withOpacity(0.4),
+                                ]),
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                            ],
-                          ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: Row(
+                                  children: [
+                                    Image.network(
+                                      'https:${detail.current.condition.icon}',
+                                      height: 50,
+                                      width: 70,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        detail.current.condition.text,
+                                        style: GoogleFonts.aDLaMDisplay(
+                                            textStyle: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(colors: [
+                            Colors.red.withOpacity(0.6),
+                            Colors.black.withOpacity(0.4),
+                            Colors.pink.withOpacity(0.7),
+                            Colors.transparent.withOpacity(0.4),
+                          ]),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: Text(
+                                    'Details',
+                                    style: GoogleFonts.aboreto(
+                                        textStyle: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 12,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Precipitation',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold)),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            '${detail.current.precipIn.toString()}mm',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(width: 150),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Speed',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold)),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            '${detail.current.windMph} mph',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Humidity',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold)),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            '${detail.current.humidity.toString()}%',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(width: 176),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Direction',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold)),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            detail.current.windDir,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Visibility',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold)),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            '${detail.current.visMiles.toString()} miles',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(width: 178),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Pressure',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold)),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            '${detail.current.pressureIn} inHg',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('UV',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold)),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            '${detail.current.uv.toString()}mm',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(width: 193),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Cloud',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold)),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            '${detail.current.cloud} %',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )),
+                      )
                     ],
                   ),
                 );
@@ -251,6 +546,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           style: GoogleFonts.acme(
               textStyle: TextStyle(color: Colors.white, fontSize: 13)),
           decoration: InputDecoration(
+            label: Text(
+              'Search',
+              style: TextStyle(color: Colors.white),
+            ),
             hintText: 'Enter location.....',
             hintStyle: TextStyle(color: Colors.white),
             border: OutlineInputBorder(

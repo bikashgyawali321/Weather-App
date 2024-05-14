@@ -9,16 +9,21 @@ class WeatherProvider extends ChangeNotifier {
   Weather? _weatherData;
 
   Weather? get weatherData => _weatherData;
+  String? _error;
+  String? get error => _error;
 
   Future<Weather> fetchWeatherByName(String location) async {
     isLoading = true;
     try {
-      _weatherData = await backendService.getWeatherData(location);
       isLoading = false;
+      _weatherData = await backendService.getWeatherData(location);
+
       notifyListeners();
       return _weatherData!;
     } catch (e) {
       isLoading = false;
+      _error = e.toString();
+
       notifyListeners();
       throw Exception('Unable to load the weather of $location: $e');
     }
@@ -34,15 +39,15 @@ class WeatherProvider extends ChangeNotifier {
       double longitude = position.longitude;
 
       String location = '$latitude,$longitude';
-
+      isLoading = false;
       _weatherData = await backendService.getWeatherData(location);
 
-      isLoading = false;
       notifyListeners();
 
       return _weatherData!;
     } catch (e) {
       isLoading = false;
+      _error = e.toString();
       notifyListeners();
       throw Exception('Unable to load weather data: $e');
     }
