@@ -1,4 +1,3 @@
-// Overall weather model
 class Weather {
   final Location location;
   final CurrentWeather current;
@@ -13,21 +12,22 @@ class Weather {
   }
 }
 
-// Model for location
 class Location {
   final String name;
   final String region;
   final String country;
   final double lat;
   final double lon;
-  final DateTime localtime;
-
+  final int localtimeEpoch;
+  final String
+      localtime; //got some unhandled exception while trying to fetch local time ,so i changed it to string
   Location({
     required this.name,
     required this.region,
     required this.country,
     required this.lat,
     required this.lon,
+    required this.localtimeEpoch,
     required this.localtime,
   });
 
@@ -38,12 +38,17 @@ class Location {
       country: json['country'],
       lat: json['lat'],
       lon: json['lon'],
-      localtime: DateTime.parse(json['localtime']),
+      localtimeEpoch: json['localtime_epoch'],
+      localtime: json['localtime'],
     );
+  }
+
+  // Parse localtime string to DateTime when needed
+  DateTime parseLocaltime() {
+    return DateTime.parse(localtime);
   }
 }
 
-// Model for current weather
 class CurrentWeather {
   final int lastUpdatedEpoch;
   final DateTime lastUpdated;
@@ -116,7 +121,7 @@ class CurrentWeather {
       feelsLikeC: json['feelslike_c'],
       feelsLikeF: json['feelslike_f'],
       visKm: json['vis_km'].toDouble(),
-      visMiles: json['vis_miles'],
+      visMiles: json['vis_miles'].toDouble(),
       uv: json['uv'].toDouble(),
       gustMph: json['gust_mph'],
       gustKph: json['gust_kph'],
@@ -124,7 +129,6 @@ class CurrentWeather {
   }
 }
 
-// Model for condition
 class Condition {
   final String text;
   final String icon;

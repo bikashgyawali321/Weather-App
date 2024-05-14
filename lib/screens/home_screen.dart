@@ -107,7 +107,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 );
               } else if (value.weatherData == null) {
                 return const Center(
-                  child: Text('The weather data is empty'),
+                  child: Text(
+                    'The weather data is empty',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 );
               } else {
                 final detail = value.weatherData;
@@ -150,7 +153,57 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                 TextStyle(color: Colors.white, fontSize: 17)),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 20,
+                      ),
+                      Container(
+                        width: 200,
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.grey.withOpacity(0.6),
+                              Colors.green.withOpacity(0.3),
+                              Colors.lightBlue.withOpacity(0.5),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 3,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Text('Local Time',
+                                  style: GoogleFonts.daysOne(
+                                      textStyle: TextStyle(
+                                          color: Colors.white, fontSize: 18))),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(
+                                detail.location.localtime,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                       Container(
                         decoration: BoxDecoration(
@@ -182,9 +235,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                             ],
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 5,
                       ),
                     ],
                   ),
