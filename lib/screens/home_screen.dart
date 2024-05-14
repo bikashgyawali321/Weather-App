@@ -122,7 +122,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               } else {
                 final detail = value.weatherData;
                 return Positioned(
-                  top: 90,
+                  top: 40,
                   left: 10,
                   right: 10,
                   child: Column(
@@ -537,36 +537,37 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               }
             },
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
-            child: TextFormField(
-              controller: _locationController,
-              style: GoogleFonts.acme(
-                  textStyle: TextStyle(color: Colors.white, fontSize: 13)),
-              decoration: InputDecoration(
-                fillColor: Colors.brown.shade400,
-                filled: true,
-                label: Text(
-                  'Search',
-                  style: TextStyle(color: Colors.white),
-                ),
-                hintText: 'Enter location.....',
-                hintStyle: TextStyle(color: Colors.white),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                suffixIcon: TextButton(
-                  onPressed: _saveOrUpdateLocation,
-                  child: Text(
-                    location == null || location!.isEmpty ? 'Save' : 'Update',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+        ],
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
+        child: TextFormField(
+          controller: _locationController,
+          style: GoogleFonts.acme(
+              textStyle: TextStyle(color: Colors.white, fontSize: 13)),
+          decoration: InputDecoration(
+            fillColor: Colors.brown.shade400,
+            filled: true,
+            label: Text(
+              'Search',
+              style: TextStyle(color: Colors.white),
+            ),
+            hintText: 'Enter location.....',
+            hintStyle: TextStyle(color: Colors.white),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            suffixIcon: TextButton(
+              onPressed: _saveOrUpdateLocation,
+              child: Text(
+                location == null || location!.isEmpty ? 'Save' : 'Update',
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ),
-        ],
+        ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
