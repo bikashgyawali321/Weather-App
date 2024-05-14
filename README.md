@@ -4,9 +4,7 @@
 
 This is a simple weather app with two screens: Help Screen and Homepage Screen. The Help Screen serves as a splash screen and provides information about the app, while the Homepage Screen allows users to view and update weather information based on location.
 
-## Screenshots
 
-[Include screenshots of your app here if applicable]
 
 ## Features
 
