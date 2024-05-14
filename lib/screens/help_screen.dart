@@ -36,7 +36,7 @@ class _HelpScreenState extends State<HelpScreen>
       ),
     );
     _animationController.repeat(reverse: true);
-    Timer(Duration(seconds: 50), () {
+    Timer(Duration(seconds: 5), () {
       if (mounted) {
         Navigator.of(context).pushReplacementNamed('/home');
       }
