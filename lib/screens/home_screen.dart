@@ -544,6 +544,8 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               style: GoogleFonts.acme(
                   textStyle: TextStyle(color: Colors.white, fontSize: 13)),
               decoration: InputDecoration(
+                fillColor: Colors.brown.shade400,
+                filled: true,
                 label: Text(
                   'Search',
                   style: TextStyle(color: Colors.white),
