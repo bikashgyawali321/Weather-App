@@ -21,7 +21,7 @@ This is a simple weather app with two screens: Help Screen and Homepage Screen. 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/your-repository.git
+   git clone https://github.com/bikashgyawali321/Weather-App
 2. Navigate to the project directory:
 
    ```bash
